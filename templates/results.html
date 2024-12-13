@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyniki Analizy CV</title>
+    <link rel="stylesheet" href="../static/stylesResult.css">
+</head>
+
+<body>
+
+    <div class="center-container">
+        <div class="content-box">
+            <h1>{% extends "base.html" %}</h1>
+            <h2>{% block title %}Wyniki Analizy{% endblock %}</h2>
+            <h3>{% block content %}</h3>
+
+            <h2>Wyniki analizy dla:</h2>
+            <p>Wprowadzona nazwa: {{ name }}</p>
+            <h3>Adres e-mail: {{ email_cv or "Nie znaleziono" }}</h3>
+            <p>Imię i nazwisko: {{ first_words }}</p>
+            <h3>Łączna liczba punktów: {{ total_score }}</h3>
+
+            <a href="{{ url_for('home') }}" class="action-button">Wróć</a>
+            <div class="table-container">
+                <table class="analysis-table">
+                    <thead>
+                        <tr>
+                            <th>Słowo kluczowe</th>
+                            <th>Ilość wystąpień</th>
+                            <th>Waga</th>
+                            <th>Punkty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for keyword, data in results.items() %}
+                        <tr>
+                            <td>{{ keyword }}</td>
+                            <td>{{ data.count }}</td>
+                            <td>{{ data.weight }}</td>
+                            <td>{{ data.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
